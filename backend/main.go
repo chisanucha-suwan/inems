@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"inmes/config"
 	router "inmes/package/routers"
+	"inmes/utilities"
 	"os"
-
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func main() {
@@ -17,12 +15,22 @@ func main() {
 	env := os.Getenv("ENVELOPMENT")
 	fmt.Println("Envilopment:", env)
 
-	app := fiber.New()
+	// create database connection
+	db, err := utilities.Open(
+		os.Getenv("DATABASE_HOST"),
+		os.Getenv("DATABASE_PORT"),
+		os.Getenv("DATABASE_NAME"),
+		os.Getenv("DATABASE_USER"),
+		os.Getenv("DATABASE_PASSWORD"),
+	)
+	if err != nil {
+		// handle error
+		fmt.Println("Error opening database connection:", err)
+		return
+	}
+	defer db.Close()
 
-	// Add logging middleware
-	app.Use(logger.New())
-
-	router.RegisterRoutes(app)
+	app := router.RegisterRoutes(db)
 
 	// Listen on a port
 	app.Listen(":8080")
