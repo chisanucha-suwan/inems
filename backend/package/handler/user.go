@@ -6,18 +6,21 @@ import (
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/jmoiron/sqlx"
 )
 
-type userHandler struct {
-	userService services.UserService
+type handler struct {
+	Service services.UserService
 }
 
-func NewUserHandler(userService services.UserService) userHandler {
-	return userHandler{userService: userService}
+func NewUserHandler(db *sqlx.DB) *handler {
+	return &handler{
+		Service: services.NewUserService(db),
+	}
 }
 
-func (h userHandler) GetUsers(c *fiber.Ctx) error {
-	users, err := h.userService.GetUsers()
+func (h *handler) GetUsers(c *fiber.Ctx) error {
+	users, err := h.Service.GetUsers()
 
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(models.Response{
