@@ -9,5 +9,5 @@ import (
 
 func RouteUsers(db *sqlx.DB, router fiber.Router) {
 	h := handler.NewUserHandler(db)
-	router.Get("/all", h.GetUsers)
+	router.Get("/", h.GetUsers)
 }
