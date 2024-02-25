@@ -3,6 +3,7 @@ package services
 import (
 	"inems/package/models"
 	"inems/package/repository"
+	"inems/utilities"
 	"log"
 
 	"github.com/jmoiron/sqlx"
@@ -35,7 +36,16 @@ func (s *service) GetUsers() ([]models.UserResponse, error) {
 		userResponses[i] = models.UserResponse{
 			UserID:      user.UserID,
 			Username:    user.Username,
-			FullName_TH: user.FullName_TH,
+			FullNameTH:  user.FullNameTH,
+			FullNameEN:  user.FullNameEN,
+			Email:       user.Email,
+			MobliePhone: user.MobilePhone,
+			ImgProfile:  user.ImgProfile,
+			IsMember:    user.IsMember,
+			Role:        utilities.GetRole(user.Role, false).(string),
+			Permission:  user.PermissionCSV,
+			UpdatedBy:   user.UpdatedBy,
+			UpdatedDate: user.UpdateDate,
 		}
 	}
 
@@ -51,9 +61,9 @@ func (s *service) GetUser(id int) (*models.UserResponse, error) {
 	}
 
 	userResponse := models.UserResponse{
-		UserID:      user.UserID,
-		Username:    user.Username,
-		FullName_TH: user.FullName_TH,
+		UserID:     user.UserID,
+		Username:   user.Username,
+		FullNameTH: user.FullNameTH,
 	}
 
 	return &userResponse, nil

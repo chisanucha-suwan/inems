@@ -28,7 +28,30 @@ func NewUserRepository(db *sqlx.DB) *repository {
 func (r *repository) GetAll() ([]models.User, error) {
 	users := []models.User{}
 
-	query := "SELECT ID, Username, FirstName_TH, LastName_TH, FullName_TH FROM Users"
+	query := `
+		SELECT 
+			ID,
+			Username,
+			FullNameTH,
+			FullNameEN,
+			Email,
+			MobilePhone,
+			ImgProfile,
+			IsMember,
+			Role,
+			PermissionCSV,
+			CASE
+				WHEN ModifiedBy IS NULL THEN CreatedBy
+				ELSE ModifiedBy
+			END AS ModifiedBy,
+			CASE 
+				WHEN ModifiedDate IS NULL THEN CreatedDate
+				ELSE ModifiedDate
+			END AS ModifiedDate
+		FROM dbo.Users
+		WHERE IsActive = 1
+		ORDER BY ID;
+	`
 	err := r.DB.Select(&users, query)
 
 	if err != nil {
@@ -39,7 +62,7 @@ func (r *repository) GetAll() ([]models.User, error) {
 
 func (r *repository) GetById(id int) (*models.User, error) {
 	user := models.User{}
-	query := "SELECT ID, Username, FirstName_TH, LastName_TH, FullName_TH FROM Users WHERE ID = ?"
+	query := "SELECT ID, Username, FirstNameTH, LastNameTH, FullNameTH FROM Users WHERE ID = ?"
 	err := r.DB.Get(&user, query, id)
 
 	if err != nil {
