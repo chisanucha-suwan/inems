@@ -1,7 +1,7 @@
 package router
 
 import (
-	"inmes/package/handler"
+	"inems/package/handler"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/jmoiron/sqlx"

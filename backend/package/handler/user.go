@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"inmes/package/models"
-	"inmes/package/services"
+	"inems/package/models"
+	"inems/package/services"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"

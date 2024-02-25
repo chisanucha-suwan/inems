@@ -1,10 +1,9 @@
-module inmes
+module inems
 
 go 1.22.0
 
 require (
 	github.com/denisenkom/go-mssqldb v0.12.3
-	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gofiber/fiber/v2 v2.52.1
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/lpernett/godotenv v0.0.0-20230527005122-0de1d4c5ef5e

@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"inmes/config"
-	router "inmes/package/routers"
-	"inmes/utilities"
+	"inems/config"
+	router "inems/package/routers"
+	"inems/utilities"
 	"os"
 )
 

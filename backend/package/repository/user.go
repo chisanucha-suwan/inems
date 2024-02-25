@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"inmes/package/models"
+	"inems/package/models"
 
 	"github.com/jmoiron/sqlx"
 )

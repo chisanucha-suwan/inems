@@ -1,8 +1,8 @@
 package services
 
 import (
-	"inmes/package/models"
-	"inmes/package/repository"
+	"inems/package/models"
+	"inems/package/repository"
 	"log"
 
 	"github.com/jmoiron/sqlx"
