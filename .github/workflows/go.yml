@@ -21,7 +21,6 @@ jobs:
       - name: Install dependencies
         run: |
           go version
-          go mod tidy
       - name: Build
         run: go build -v ./../backend/main.go
       - name: Test
