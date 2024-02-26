@@ -21,6 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           go version
+          cd ./../backend
           go mod init inems
           go mod tidy
       - name: Build
